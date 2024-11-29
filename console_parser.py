@@ -24,8 +24,8 @@ def _add_optional_arguments(parser):
     parser.add_argument("--timeout", type=float, default=2.0,
                         help="Timeout for waiting response in seconds (default: 2s)"
                         )
-    parser.add_argument("-j", "--num-threads", type=int, default=1,
-                        help="Number of threads for scanning (default: 1)"
+    parser.add_argument("-j", "--num-threads", type=int, default=5,
+                        help="Number of threads for scanning (default: 5)"
                         )
     parser.add_argument("-v", "--verbose", action="store_true",
                         help="Enable verbose mode"

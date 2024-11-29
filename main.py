@@ -1,11 +1,13 @@
-from port_scaner_request import PortScanRequest
-from port_scaner_response import PortScanResponse
+from src.request_builder import PortScanRequest
+from src.response_builder import PortScanResponse
 from console_parser import get_arguments
+
 
 def main():
     arguments = get_arguments()
+    print(arguments)
     request = PortScanRequest.from_argument_parser(arguments)
-    response = PortScanResponse(request)
+    response = PortScanResponse.from_request(request)
     print(response)
 
 if __name__ == '__main__':

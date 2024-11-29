@@ -1,21 +1,18 @@
 from argparse import Namespace
 from dataclasses import dataclass
-from enum import Enum
+from src.protocol_enum import TransportProtocol
+
 
 @dataclass
 class Options:
     numberThreads: int
     verbose: bool
     guess: bool
-    timeout: int
-
-class Protocol(Enum):
-    TCP = 'TCP',
-    UDP = 'UDP'
+    timeout: float
 
 @dataclass
 class Port:
-    protocol: Protocol
+    protocol: TransportProtocol
     number: int
 
 @dataclass
@@ -30,8 +27,14 @@ class PortScanRequest:
         ip_address = args.ip_address
         list_ports = []
         for port in args.ports:
+            if '/' not in port:
+                protocol = TransportProtocol.TCP if port == "tcp" else TransportProtocol.UDP
+                for i in range(1, 65536):
+                    list_ports.append(Port(protocol, i))
+                continue
+
             data = port.split('/')
-            protocol = Protocol.TCP if data[0] == 'tcp' else Protocol.UDP
+            protocol = TransportProtocol.TCP if data[0] == 'tcp' else TransportProtocol.UDP
             for t in data[1].split(','):
                 if '-' not in t:
                     list_ports.append(Port(protocol, int(t)))
