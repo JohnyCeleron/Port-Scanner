@@ -5,7 +5,6 @@ from console_parser import get_arguments
 
 def main():
     arguments = get_arguments()
-    print(arguments)
     request = PortScanRequest.from_argument_parser(arguments)
     response = PortScanResponse.from_request(request)
     print(response)
